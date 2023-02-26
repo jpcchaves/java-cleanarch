@@ -2,3 +2,19 @@ jpcchaves:
   client:
     address:
       url: http://localhost:8082/addresses
+spring:
+  datasource:
+    url: jdbc:mysql://localhost:3306/cleanarch
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    username: root
+    password: admin
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+    properties:
+      hibernate:
+        format_sql: true
+    database: MYSQL
+    database-platform: org.hibernate.dialect.MySQL8Dialect
+
