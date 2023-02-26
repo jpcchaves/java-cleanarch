@@ -1,15 +1,14 @@
 package com.jpcchaves.cleanarch.entrypoint.controller;
 
+import com.jpcchaves.cleanarch.core.usecase.FindCustomerByIdUsecase;
 import com.jpcchaves.cleanarch.core.usecase.InsertCustomerUsecase;
 import com.jpcchaves.cleanarch.entrypoint.controller.mapper.CustomerMapper;
 import com.jpcchaves.cleanarch.entrypoint.controller.request.CustomerRequest;
+import com.jpcchaves.cleanarch.entrypoint.controller.response.CustomerResponse;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/api/v1/customers")
@@ -17,6 +16,9 @@ public class CustomerController {
 
     @Autowired
     private InsertCustomerUsecase insertCustomerUsecase;
+
+    @Autowired
+    private FindCustomerByIdUsecase findCustomerByIdUsecase;
 
     @Autowired
     private CustomerMapper customerMapper;
@@ -28,5 +30,9 @@ public class CustomerController {
         return ResponseEntity.ok().build();
     }
 
-
+    @GetMapping("/{id}")
+    public ResponseEntity<CustomerResponse> findById(@PathVariable final Long id){
+            var customer = findCustomerByIdUsecase.find(id);
+            return ResponseEntity.ok(customerMapper.toCustomerResponse(customer));
+    }
 }
