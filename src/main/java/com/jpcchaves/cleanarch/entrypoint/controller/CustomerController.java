@@ -1,5 +1,6 @@
 package com.jpcchaves.cleanarch.entrypoint.controller;
 
+import com.jpcchaves.cleanarch.core.dataprovider.DeleteCustomer;
 import com.jpcchaves.cleanarch.core.usecase.FindCustomerByIdUsecase;
 import com.jpcchaves.cleanarch.core.usecase.InsertCustomerUsecase;
 import com.jpcchaves.cleanarch.core.usecase.UpdateCustomerUseCase;
@@ -25,6 +26,9 @@ public class CustomerController {
     private UpdateCustomerUseCase updateCustomerUsecase;
 
     @Autowired
+    private DeleteCustomer deleteCustomer;
+
+    @Autowired
     private CustomerMapper customerMapper;
 
     @PostMapping
@@ -45,6 +49,12 @@ public class CustomerController {
         var customer = customerMapper.toCustomer(customerRequest);
         customer.setId(id);
         updateCustomerUsecase.update(customer, customerRequest.getZipCode());
+        return ResponseEntity.noContent().build();
+    }
+
+    @DeleteMapping("/${id}")
+    public ResponseEntity<Void> delete(@PathVariable final Long id){
+        deleteCustomer.delete(id);
         return ResponseEntity.noContent().build();
     }
 }
