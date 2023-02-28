@@ -4,11 +4,11 @@ import com.jpcchaves.cleanarch.core.dataprovider.FindCustomerById;
 import com.jpcchaves.cleanarch.core.domain.Customer;
 import com.jpcchaves.cleanarch.core.usecase.FindCustomerByIdUsecase;
 
-public class FindCustomerByIdImpl implements FindCustomerByIdUsecase {
+public class FindCustomerByIdUseCaseImpl implements FindCustomerByIdUsecase {
 
     private final FindCustomerById findCustomerById;
 
-    public FindCustomerByIdImpl(FindCustomerById findCustomerById) {
+    public FindCustomerByIdUseCaseImpl(FindCustomerById findCustomerById) {
         this.findCustomerById = findCustomerById;
     }
 
